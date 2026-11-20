@@ -49,6 +49,9 @@ class MainWindow(QWidget):
 
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
+        self.student_ids.clear
+        self.original_grades.clear
+        self.corrected_grades.clear
         if file_name == "":
             return
         self.selected_file = file_name
