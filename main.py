@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import (QApplication, QWidget, QPushButton,
+from PySide6.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit,
                                QTableWidget, QTableWidgetItem, QFileDialog)
+from PySide6.QtGui import QIntValidator
 
 
 class MainWindow(QWidget):
@@ -24,6 +25,13 @@ class MainWindow(QWidget):
         self.table.setColumnWidth(0, 130)
         self.table.setColumnWidth(1, 130)
         self.table.setColumnWidth(2, 130)
+        self.bonus_label = QLabel("Bonus points:", self)
+        self.bonus_label.setGeometry(20, 450, 100, 30)
+
+        self.bonus_input = QLineEdit("", self)
+        self.bonus_input.setGeometry(130, 450, 100, 30)
+        self.bonus_input.setValidator(QIntValidator())
+        self.bonus_input.returnPressed.connect(self.add_bonus)
 
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
@@ -40,6 +48,11 @@ class MainWindow(QWidget):
             self.table.setItem(row, 1, QTableWidgetItem(str(self.original_grades[row])))
             self.table.setItem(row, 2, QTableWidgetItem(str(self.corrected_grades[row])))
 
+        def add_bonus(self):
+        # TODO: read the number from self.bonus_input
+        # TODO: corrected grade = original + bonus, but not more than 100
+        # TODO: call self.update_table()
+        pass
 
 if __name__ == "__main__":
     app = QApplication()
