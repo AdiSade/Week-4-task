@@ -29,6 +29,9 @@ class About(QWidget):
         self.my_github.setGeometry(20, 360, 300, 30)
         self.my_github.setOpenExternalLinks(True)
 
+        with open('style.qss', 'r') as f:
+            self.setStyleSheet(f.read())
+
 
 if __name__ == '__main__':
     app = QApplication()

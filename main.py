@@ -44,6 +44,9 @@ class MainWindow(QWidget):
         self.about_button.setGeometry(380, 450, 120, 30)
         self.about_button.clicked.connect(self.show_about_window)    
 
+        with open("style.qss", "r") as f:
+            self.setStyleSheet(f.read())
+
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
         if file_name == "":
