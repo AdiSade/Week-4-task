@@ -4,12 +4,14 @@ import subprocess
 from PySide6.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLineEdit,
                                QTableWidget, QTableWidgetItem, QFileDialog)
 from PySide6.QtGui import QIntValidator
+from About import About
 
 
 class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.about_window = About()
         self.setWindowTitle("Grades Fixer")
         self.resize(520, 510)
 
@@ -37,7 +39,10 @@ class MainWindow(QWidget):
         self.bonus_input.returnPressed.connect(self.add_bonus)
         self.update_button = QPushButton("File Update", self)
         self.update_button.setGeometry(250, 450, 120, 30)
-        self.update_button.clicked.connect(self.update_file)    
+        self.update_button.clicked.connect(self.update_file)
+        self.about_button = QPushButton("About", self)
+        self.about_button.setGeometry(380, 450, 120, 30)
+        self.about_button.clicked.connect(self.show_about_window)    
 
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
@@ -60,12 +65,13 @@ class MainWindow(QWidget):
         # TODO: call self.update_table()
         pass
 
-        def update_file(self):
+    def update_file(self):
         # TODO: overwrite self.selected_file with the corrected grades
         #       (keep the original headers and format)
         # TODO: at the end call self.open_file(self.selected_file)
         pass
-
+        
+        
     def open_file(self, path):
         # opens the file with the default program, works on Windows / Mac / Linux
         if sys.platform.startswith("win"):
@@ -74,6 +80,9 @@ class MainWindow(QWidget):
             subprocess.run(["open", path])
         else:
             subprocess.run(["xdg-open", path])
+
+    def show_about_window(self):
+        self.about_window.show()
 
 if __name__ == "__main__":
     app = QApplication()
