@@ -49,12 +49,12 @@ class MainWindow(QWidget):
 
     def load_file(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
-        self.student_ids.clear
-        self.original_grades.clear
-        self.corrected_grades.clear
         if file_name == "":
             return
         self.selected_file = file_name
+        self.student_ids.clear()
+        self.original_grades.clear()
+        self.corrected_grades.clear()
         with open(self.selected_file, 'r') as f:
             header = next(f)
             for student in f:
@@ -90,14 +90,14 @@ class MainWindow(QWidget):
 
     def update_file(self):
         if self.selected_file == "":
-                    return
+            return
         with open(self.selected_file, 'r') as f:
             header = next(f)
 
         with open(self.selected_file, 'w') as f:
             f.write(header)
             for j in range(len(self.student_ids)):
-                f.write(f"{self.student_ids[j]}, {self.corrected_grades[j]}\n")
+                f.write(f"{self.student_ids[j]},{self.corrected_grades[j]}\n")
         self.open_file(self.selected_file)
         
     def open_file(self, path):
