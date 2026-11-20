@@ -48,7 +48,7 @@ class MainWindow(QWidget):
             self.setStyleSheet(f.read())
 
     def load_file(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (grades.csv)")
+        file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
         if file_name == "":
             return
         self.selected_file = file_name
