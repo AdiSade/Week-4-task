@@ -14,14 +14,14 @@ class About(QWidget):
         image = QPixmap('images.jpg').scaled(200, 200)
         self.my_picture.setPixmap(image)
 
-        self.my_name = QLabel('YOUR NAME', self)
+        self.my_name = QLabel('ADI SADE', self)
         self.my_name.setGeometry(20, 240, 300, 30)
         self.my_name.setObjectName("title")
 
-        self.my_email = QLabel('your.email@gmail.com', self)
+        self.my_email = QLabel('adisade00@gmail.com', self)
         self.my_email.setGeometry(20, 280, 300, 30)
 
-        self.my_linkedin = QLabel('<a href="https://www.linkedin.com/in/YOUR-PROFILE/">My LinkedIn page</a>', self)
+        self.my_linkedin = QLabel('<a href="https://www.linkedin.com/in/adi-sade/">My LinkedIn page</a>', self)
         self.my_linkedin.setGeometry(20, 320, 300, 30)
         self.my_linkedin.setOpenExternalLinks(True)
 

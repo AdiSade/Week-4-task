@@ -48,13 +48,23 @@ class MainWindow(QWidget):
             self.setStyleSheet(f.read())
 
     def load_file(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
+        file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (grades.csv)")
         if file_name == "":
             return
-        # TODO: save the file name in self.selected_file
-        # TODO: open the file, fill the three lists
-        #       (student_ids, original_grades, corrected_grades)
-        # TODO: call self.update_table() at the end
+        self.selected_file = file_name
+        with open(self.selected_file, 'r') as f:
+            header = next(f)
+            for student in f:
+                student = student.strip()
+                if student == '':
+                    return
+                data = student.split(',')
+                id = data[0]
+                grade = int(data[1])
+                self.student_ids.append(id)
+                self.original_grades.append(grade)
+                self.corrected_grades.append(grade)
+        self.update_table()
 
     def update_table(self):
         for row in range(len(self.student_ids)):
