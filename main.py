@@ -1,0 +1,48 @@
+from PySide6.QtWidgets import (QApplication, QWidget, QPushButton,
+                               QTableWidget, QTableWidgetItem, QFileDialog)
+
+
+class MainWindow(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Grades Fixer")
+        self.resize(520, 510)
+
+        self.student_ids = []
+        self.original_grades = []
+        self.corrected_grades = []
+        self.selected_file = ''
+
+        self.load_button = QPushButton("Load File", self)
+        self.load_button.setGeometry(20, 20, 150, 30)
+        self.load_button.clicked.connect(self.load_file)
+
+        self.table = QTableWidget(50, 3, self)
+        self.table.setGeometry(20, 70, 480, 360)
+        self.table.setHorizontalHeaderLabels(["ID", "Grades Original", "Corrected Grades"])
+        self.table.setColumnWidth(0, 130)
+        self.table.setColumnWidth(1, 130)
+        self.table.setColumnWidth(2, 130)
+
+    def load_file(self):
+        file_name, _ = QFileDialog.getOpenFileName(self, "Choose students file", "", "CSV files (*.csv)")
+        if file_name == "":
+            return
+        # TODO: save the file name in self.selected_file
+        # TODO: open the file, fill the three lists
+        #       (student_ids, original_grades, corrected_grades)
+        # TODO: call self.update_table() at the end
+
+    def update_table(self):
+        for row in range(len(self.student_ids)):
+            self.table.setItem(row, 0, QTableWidgetItem(str(self.student_ids[row])))
+            self.table.setItem(row, 1, QTableWidgetItem(str(self.original_grades[row])))
+            self.table.setItem(row, 2, QTableWidgetItem(str(self.corrected_grades[row])))
+
+
+if __name__ == "__main__":
+    app = QApplication()
+    window = MainWindow()
+    window.show()
+    app.exec()
