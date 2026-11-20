@@ -89,11 +89,16 @@ class MainWindow(QWidget):
         self.update_table()
 
     def update_file(self):
-        # TODO: overwrite self.selected_file with the corrected grades
-        #       (keep the original headers and format)
-        # TODO: at the end call self.open_file(self.selected_file)
-        pass
-        
+        if self.selected_file == "":
+                    return
+        with open(self.selected_file, 'r') as f:
+            header = next(f)
+
+        with open(self.selected_file, 'w') as f:
+            f.write(header)
+            for j in range(len(self.student_ids)):
+                f.write(f"{self.student_ids[j]}, {self.corrected_grades[j]}\n")
+        self.open_file(self.selected_file)
         
     def open_file(self, path):
         # opens the file with the default program, works on Windows / Mac / Linux
