@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QLine
                                QTableWidget, QTableWidgetItem, QFileDialog)
 from PySide6.QtGui import QIntValidator
 from About import About
+from Chart import Chart
 
 
 class MainWindow(QWidget):
@@ -12,6 +13,7 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.about_window = About()
+        self.chart_window = Chart()
         self.setWindowTitle("Grades Fixer")
         self.resize(520, 510)
 
@@ -19,10 +21,14 @@ class MainWindow(QWidget):
         self.original_grades = []
         self.corrected_grades = []
         self.selected_file = ''
+        self.pass_grade = 60
 
         self.load_button = QPushButton("Load File", self)
         self.load_button.setGeometry(20, 20, 150, 30)
         self.load_button.clicked.connect(self.load_file)
+        self.chart_button = QPushButton("Pass Chart", self)
+        self.chart_button.setGeometry(190, 20, 150, 30)
+        self.chart_button.clicked.connect(self.show_chart)
 
         self.table = QTableWidget(50, 3, self)
         self.table.setGeometry(20, 70, 480, 360)
@@ -115,6 +121,14 @@ class MainWindow(QWidget):
 
     def show_about_window(self):
         self.about_window.show()
+
+    def show_chart(self):
+        if self.selected_file == "":
+            return
+        # TODO: count how many passed / failed in the original grades
+        # TODO: count how many passed / failed in the corrected grades
+        # TODO: call self.chart_window.draw_chart(pass_before, pass_after, fail_before, fail_after)
+        self.chart_window.show()
 
 if __name__ == "__main__":
     app = QApplication()
