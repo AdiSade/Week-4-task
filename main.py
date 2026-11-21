@@ -93,7 +93,11 @@ class MainWindow(QWidget):
             return
         with open(self.selected_file, 'r') as f:
             header = next(f)
-
+        backup_name = self.selected_file.replace('.csv', '_backup.csv')
+        with open(backup_name, "w") as f:
+            f.write(header)
+            for j in range(len(self.student_ids)):
+                f.write(f"{self.student_ids[j]},{self.original_grades[j]}\n")
         with open(self.selected_file, 'w') as f:
             f.write(header)
             for j in range(len(self.student_ids)):
