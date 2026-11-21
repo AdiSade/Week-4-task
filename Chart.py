@@ -19,13 +19,18 @@ class Chart(QWidget):
         with open('style.qss', 'r') as f:
             self.setStyleSheet(f.read())
 
-        self.draw_chart(0, 0, 0, 0)
+        self.draw_chart(0, 0)
 
-    def draw_chart(self, pass_before, pass_after, fail_before, fail_after):
-        # temporary chart - you will replace the content of this method
+    def draw_chart(self, pass_before, pass_after):
         self.ax.clear()
-        self.ax.bar(["a", "b"], [1, 2])
-        self.canvas.draw()
+        self.ax.bar(["passed before update", "passed after update"], [pass_before, pass_after], color=["yellow", "green"])
+# bar מקבל קודם רשימת תוויות לציר X, אחר כך רשימת גבהים, וצבע לכל עמודה
+        self.ax.set_title("passed graph")
+        self.ax.set_ylabel("chart for numbers")
+        self.canvas.draw() 
+        # temporary chart - you will replace the content of this method
+        #self.ax.bar(["passed before update", "failed after update"], [1, 2])
+        #self.canvas.draw()
 
 
 if __name__ == '__main__':

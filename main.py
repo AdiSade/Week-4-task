@@ -125,9 +125,19 @@ class MainWindow(QWidget):
     def show_chart(self):
         if self.selected_file == "":
             return
-        # TODO: count how many passed / failed in the original grades
-        # TODO: count how many passed / failed in the corrected grades
-        # TODO: call self.chart_window.draw_chart(pass_before, pass_after, fail_before, fail_after)
+        passed_b4_update = 0
+        passed_after_update = 0
+        for grade in self.original_grades:
+            if int(grade) >= self.pass_grade:
+                passed_b4_update += 1
+            else:
+                continue
+        for grade in self.corrected_grades:
+            if int(grade) >= self.pass_grade:
+                passed_after_update += 1
+            else:
+                continue
+        self.chart_window.draw_chart(passed_b4_update, passed_after_update)
         self.chart_window.show()
 
 if __name__ == "__main__":
